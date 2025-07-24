@@ -1,0 +1,67 @@
+﻿Social Media Planner – AgentFlow Description
+The Social Media Planner is a multi-agent workflow designed to help influencers and content teams craft, optimize, and schedule high-impact social media content across platforms including TikTok, Instagram, Facebook, X (formerly Twitter), and LinkedIn.
+This AgentFlow coordinates three specialized roles—Influencer Content Strategist, Trend and Hashtag Analyst, and Posting Schedule Coordinator—to ensure content is not only engaging and on-brand, but also strategically timed and aligned with current platform trends.
+
+
+Agent Roles & Workflow
+1. Influencer Content Strategist
+
+   * Objective: Develop platform-specific content tailored to the influencer’s brand, audience, and messaging goals.
+
+   * Tasks:
+
+      * Use verified insights and brand data to write compelling captions and post ideas.
+
+      * Tailor tone and format to fit each platform’s expectations.
+
+      * Collaborate with the Posting Schedule Coordinator to ensure proper timing.
+
+         * Tools: Integrates with searchapi to identify fresh trends and verified hashtags.
+
+            2. Trend and Hashtag Analyst
+
+               * Objective: Discover current trends and hashtags to maximize content reach and relevance.
+
+               * Tasks:
+
+                  * Analyze real-time data across platforms (TikTok, Instagram, Facebook, X, LinkedIn).
+
+                  * Recommend trends and hashtags for each platform based on influencer’s niche.
+
+                  * Share findings with the Content Strategist.
+
+                     * Tools: Utilizes searchapi for up-to-date trend and engagement data.
+
+                        3. Posting Schedule Coordinator
+
+                           * Objective: Build an optimized publishing calendar that aligns with audience behavior.
+
+                           * Tasks:
+
+                              * Determine best times to post on each platform using verified engagement data.
+
+                              * Organize the schedule in CSV format for easy integration and automation.
+
+                              * Finalize timing with input from both strategy and trend agents.
+
+                                 * Tools: Uses csv output parser to generate export-ready schedule files, verified via searchapi.
+
+
+
+Use Cases
+                                    * Strategic social media planning for influencers and content creators.
+
+                                    * Automated multi-platform content workflows.
+
+                                    * Enhancing organic reach through real-time trend integration and timing optimization.
+
+ Outputs
+                                       * Platform-specific posts and captions
+
+                                       * Trending hashtags by platform and niche
+
+                                       * CSV-ready publishing schedule
+
+
+
+This flow is ideal for digital marketing teams, personal brands, influencer managers, and content creators aiming to scale and systematize their online presence using AI-powered planning.

@@ -1,0 +1,30 @@
+﻿Personal AI Assistant – Custom ChatGPT Interface with Memory
+Use case: Self-built AI assistant for daily productivity
+Tech: OpenAI GPT-3.5 Turbo | Memory via system prompt | Custom UI
+Description:
+To improve my daily work and avoid the limitations of the free ChatGPT interface, I created my own lightweight AI assistant powered by the GPT-3.5 Turbo model.
+The goal was to build a persistent, cost-effective assistant that remembers context between chats and helps me with repetitive tasks — without relying on ChatGPT Plus or needing to rewrite the same prompts every day.
+I achieved this by designing a minimal chat interface with a structured system prompt that simulates memory and customizes the assistant’s behavior to my personal workflow.
+The assistant helps me with:
+* Content creation and idea generation
+
+* Social media writing for Rocket Mango
+
+* Task planning and writing support
+
+* Quick summaries and responses
+
+No external tools or APIs were used — just a smart configuration of the OpenAI API.
+This project reflects a practical and creative use of AI to improve productivity, reduce costs, and streamline solo work as a founder.
+
+
+Highlights:
+   * No-code/minimal-code setup
+
+   * Persistent personality and memory simulation
+
+   * Cost-efficient alternative to ChatGPT Plus
+
+   * Fully personalized assistant tailored to my working style
+
+   * Private and secure – no external integrations

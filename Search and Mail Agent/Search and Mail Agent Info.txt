@@ -1,0 +1,71 @@
+﻿Search and Mail Agent – AgentFlow Description
+The Search and Mail Agent is an intelligent, multi-agent automation workflow designed to research and reach out to influential individuals or potential collaborators. It performs a complete online investigation, creates a professional profile summary, and composes a personalized email — all in one streamlined process.
+
+
+Agent Roles & Workflow
+1. Web Information Gatherer
+
+   * Objective: Collect accurate, up-to-date, and verified information about a specific individual (person_name).
+
+   * Tasks:
+
+      * Use the SerperAPI to search GitHub, X (formerly Twitter), Wikipedia, and other public sources.
+
+      * Extract details such as work history, current roles, public contributions, recent projects, and achievements.
+
+      * Avoid speculation and ensure all information is traceable and verified.
+
+         * Output: A structured, factual report with a professional timeline and summary of findings.
+
+            2. Profile Writer
+
+               * Objective: Craft a polished, narrative-style profile of person_name based on the Web Information Gatherer’s report.
+
+               * Tasks:
+
+                  * Highlight the individual’s career trajectory, notable work, and key accomplishments.
+
+                  * Emphasize current activities and public contributions, using only the verified data.
+
+                  * Maintain a professional and engaging tone.
+
+                     * Output: A well-written, ready-to-use profile summarizing the person’s background and impact.
+
+                        3. Email Composer
+
+                           * Objective: Write a respectful and personalized email to person_name, expressing interest in connecting or collaborating.
+
+                           * Tasks:
+
+                              * Start with a sincere compliment based on recent achievements or projects from the profile.
+
+                              * Express interest in potential job opportunities or professional exchange.
+
+                              * Clearly articulate how your skills could contribute to their work or team.
+
+                              * Maintain a professional, friendly tone appropriate for cold outreach.
+
+                                 * Output: A customized email draft saved using the Write File tool for future sending or reference.
+
+
+
+ Use Cases
+                                    * Reaching out to industry experts, open-source maintainers, or tech leaders.
+
+                                    * Researching potential mentors, collaborators, or employers.
+
+                                    * Creating automated outreach workflows for networking or recruiting.
+
+
+
+Outputs
+                                       * Verified research report (structured data about the person)
+
+                                       * Professional profile text (narrative bio)
+
+                                       * Personalized outreach email (saved to file)
+
+________________
+
+
+This agentflow is ideal for job seekers, recruiters, researchers, or business developers aiming to build strategic connections based on real insights.
