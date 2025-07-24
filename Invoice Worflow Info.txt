@@ -1,0 +1,98 @@
+﻿Automated Invoice Processing Workflow (n8n)
+This n8n workflow automates the process of handling new PDF invoices added to Google Drive. It extracts key data from the invoice, updates a Google Sheet with this information, and sends an email notification to the billing department.
+
+
+ Workflow Overview
+This workflow performs the following steps:
+1. Trigger: Google Drive Watch
+
+   * Monitors a specified folder in Google Drive.
+
+   * Triggers when a new PDF invoice file is added.
+
+      2. Extract Invoice Data
+
+         * Uses the File Extractor node to read the contents of the PDF.
+
+         * Sends the extracted text to the OpenAI API (GPT-4o-mini model) to parse structured invoice data (e.g., invoice number, date, total, vendor).
+
+            3. Update Google Sheets
+
+               * Appends the extracted invoice data as a new row in a connected Google Sheet for centralized tracking.
+
+                  4. Compose Email Notification
+
+                     * Uses OpenAI API to generate a professional summary of the invoice.
+
+                     * Prepares the email content with all relevant details.
+
+                        5. Send Email
+
+                           * Sends an email to the billing team with:
+
+                              * A notification about the new invoice.
+
+                              * A summary of the extracted invoice data.
+
+                              * A link to the original PDF in Google Drive.
+
+________________
+
+
+ Setup Instructions
+To set up and use this workflow, follow these steps:
+                                 1. Google Drive Integration
+
+                                    * Create or select a specific folder in Google Drive for storing incoming invoices.
+
+                                    * Set up Google Drive credentials in n8n.
+
+                                    * Configure the “Google Drive Trigger” node to watch this folder for new .pdf files.
+
+                                       2. OpenAI API Configuration
+
+                                          * Create an account at platform.openai.com if you don't have one.
+
+                                          * Obtain your OpenAI API key.
+
+                                          * Add the OpenAI API credentials in n8n and select the GPT-4o-mini model in the relevant nodes.
+
+                                             3. File Extraction
+
+                                                * Ensure the "File Extractor" node is configured to handle PDF content extraction properly.
+
+                                                * Pass the extracted text to the OpenAI node for data parsing.
+
+                                                   4. Google Sheets Integration
+
+                                                      * Create a Google Sheet with appropriate columns for invoice data (e.g., Date, Vendor, Amount, Invoice Number).
+
+                                                      * Add Google Sheets credentials to n8n.
+
+                                                      * Configure the “Google Sheets” node to append new rows with extracted data.
+
+                                                         5. Email Sending
+
+                                                            * Configure an email sending node (SMTP or Gmail).
+
+                                                            * Define the recipient address (e.g., billing@yourcompany.com).
+
+                                                            * Use dynamic content from OpenAI to personalize the email.
+
+                                                               6. Test the Workflow
+
+                                                                  * Upload a sample invoice to the target Google Drive folder.
+
+                                                                  * Ensure all steps execute as expected and the email notification is received.
+
+________________
+
+
+ Requirements
+                                                                     * n8n instance (self-hosted or cloud)
+
+                                                                     * Google account with Drive and Sheets access
+
+                                                                     * OpenAI API key
+
+                                                                     * Email service credentials (SMTP/Gmail)
