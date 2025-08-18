@@ -1,0 +1,578 @@
+{
+  "name": "4) Invoice Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1C_Y0ClBbPFpaWaUuZByH6_oAHcEfs_YX",
+          "mode": "list",
+          "cachedResultName": "faktury",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1C_Y0ClBbPFpaWaUuZByH6_oAHcEfs_YX"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1400,
+        -160
+      ],
+      "id": "7ba9435b-ef6f-42b6-b9e3-8c69e5294392",
+      "name": "Google Drive Trigger",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "JbctO98BKrtvH8Ye",
+          "name": "ewa.balcerowiak1@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -980,
+        -160
+      ],
+      "id": "b34be0d8-7ebd-45b9-8363-62ae444a0d2f",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.text }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "Invoice Number",
+              "description": "The number of the invoice",
+              "required": true
+            },
+            {
+              "name": "Client Name",
+              "description": "the name of the client",
+              "required": true
+            },
+            {
+              "name": "Client Email",
+              "description": "the email of the client",
+              "required": true
+            },
+            {
+              "name": "Client Address",
+              "description": "the address of the client",
+              "required": true
+            },
+            {
+              "name": "Total Amount",
+              "description": "the total amount of the invoice",
+              "required": true
+            },
+            {
+              "name": "Invoice Date",
+              "type": "date",
+              "description": "the date the invoice was sent",
+              "required": true
+            },
+            {
+              "name": "Due Date",
+              "type": "date",
+              "description": "the date the invoice is due",
+              "required": true
+            }
+          ]
+        },
+        "options": {
+          "systemPromptTemplate": "=You are an expert extraction algorithm.\nOnly extract relevant information from the text.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value.\nextract client phone only as a number - dont use extra characters."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1,
+      "position": [
+        -760,
+        -160
+      ],
+      "id": "275213e9-71b5-4782-a0bd-5513fd26b7e0",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1vYNwIiLG9-HKfu534DbScdAReyGDH2md5NpUV_YUa90",
+          "mode": "list",
+          "cachedResultName": "Faktury",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vYNwIiLG9-HKfu534DbScdAReyGDH2md5NpUV_YUa90/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Arkusz1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vYNwIiLG9-HKfu534DbScdAReyGDH2md5NpUV_YUa90/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numer faktury": "={{ $json.output['Invoice Number'] }}",
+            "imie klienta": "={{ $json.output['Client Name'] }}",
+            "email klienta": "={{ $json.output['Client Email'] }}",
+            "adres klienta": "={{ $json.output['Client Address'] }}",
+            "suma": "={{ $json.output['Total Amount'] }}",
+            "data faktury": "={{ $json.output['Invoice Date'] }}",
+            "termin płatności": "={{ $json.output['Due Date'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numer faktury",
+              "displayName": "numer faktury",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "imie klienta",
+              "displayName": "imie klienta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email klienta",
+              "displayName": "email klienta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "adres klienta",
+              "displayName": "adres klienta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "suma",
+              "displayName": "suma",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data faktury",
+              "displayName": "data faktury",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "termin płatności",
+              "displayName": "termin płatności",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -400,
+        -160
+      ],
+      "id": "20b6e4b5-b266-46ff-a91b-62ddc25cd2e1",
+      "name": "Update DB",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nuNXCoDS0Y0zgnfS",
+          "name": "ewa@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -1180,
+        -160
+      ],
+      "id": "0a00ec1f-1a03-4b19-8feb-15c31623174f",
+      "name": "Download Binary",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "JbctO98BKrtvH8Ye",
+          "name": "ewa.balcerowiak1@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Numer faktury: {{ $json['numer faktury'] }}\n\nNazwa klienta: {{ $json['imie klienta'] }}\n\nAdres e-mail klienta: {{ $json['email klienta'] }}\n\nKwota całkowita: {{ $json.suma }}\n\nData wystawienia: {{ $json['data faktury'] }}\n\nTermin płatności: {{ $json['termin płatności'] }}\n"
+            },
+            {
+              "content": "=# Przegląd\nJesteś ekspertem ds. e-maili w firmie Green Grass Corp, nazywasz się Greenie. Otrzymasz informacje o fakturze. Twoim zadaniem jest powiadomienie wewnętrznego zespołu księgowości, że faktura została odebrana/wysłana.\n## E-mail\nPoinformuj zespół księgowości o fakturze. Powiedz im, że zaktualizowaliśmy to również w Bazie Danych Faktur, a oni mogą to zobaczyć tutaj: https://docs.google.com/spreadsheets/d/1vYNwIiLG9-HKfu534DbScdAReyGDH2md5NpUV_YUa90/edit?usp=sharing\nGsuDWY/edit?gid=0#gid=0\n## Wyjście\nWydaj następujące parametry osobno:\nTemat\nE-mail",
+              "role": "system"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -180,
+        -160
+      ],
+      "id": "1f756ccd-b1b6-4ba8-997b-f9345acfac12",
+      "name": "Create Email",
+      "credentials": {
+        "openAiApi": {
+          "id": "ABlHOx3tbedwci8u",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "billing@example.com",
+        "subject": "={{ $json.message.content.Temat }}",
+        "emailType": "text",
+        "message": "={{ $json.message.content['E-mail'] }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        200,
+        -160
+      ],
+      "id": "3c1cd727-5199-475b-8024-0e8e6a7e80cf",
+      "name": "Send Email",
+      "webhookId": "da2aa524-25e5-47e2-bd1a-fe7a97edf8a7",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ag5KUiWbSiJNiCVd",
+          "name": "ewa.balcerowiak1@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -160
+      ],
+      "id": "7ba3e9f0-5a21-43e6-8cb0-f5304c466989",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -680,
+        60
+      ],
+      "id": "adafccb7-0b45-446f-94fc-74f7b2104ab9",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "ABlHOx3tbedwci8u",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Google Drive Trigger": [
+      {
+        "json": {
+          "parents": [
+            "1C_Y0ClBbPFpaWaUuZByH6_oAHcEfs_YX"
+          ],
+          "lastModifyingUser": {
+            "displayName": "Ewa",
+            "kind": "drive#user",
+            "me": true,
+            "permissionId": "06093761391042298790",
+            "emailAddress": "ewa.balcerowiak1@gmail.com",
+            "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocJxwEwMoJ1PzONnrdnw29qriSu6NiPWCN3W05lkVaMs1laMTw=s64"
+          },
+          "owners": [
+            {
+              "displayName": "Ewa",
+              "kind": "drive#user",
+              "me": true,
+              "permissionId": "06093761391042298790",
+              "emailAddress": "ewa.balcerowiak1@gmail.com",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocJxwEwMoJ1PzONnrdnw29qriSu6NiPWCN3W05lkVaMs1laMTw=s64"
+            }
+          ],
+          "permissions": [
+            {
+              "kind": "drive#permission",
+              "id": "06093761391042298790",
+              "type": "user",
+              "emailAddress": "ewa.balcerowiak1@gmail.com",
+              "role": "owner",
+              "displayName": "Ewa",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocJxwEwMoJ1PzONnrdnw29qriSu6NiPWCN3W05lkVaMs1laMTw=s64",
+              "deleted": false,
+              "pendingOwner": false
+            }
+          ],
+          "spaces": [
+            "drive"
+          ],
+          "capabilities": {
+            "canAcceptOwnership": false,
+            "canAddChildren": false,
+            "canAddMyDriveParent": false,
+            "canChangeCopyRequiresWriterPermission": true,
+            "canChangeSecurityUpdateEnabled": false,
+            "canChangeViewersCanCopyContent": true,
+            "canComment": true,
+            "canCopy": true,
+            "canDelete": true,
+            "canDisableInheritedPermissions": false,
+            "canDownload": true,
+            "canEdit": true,
+            "canEnableInheritedPermissions": true,
+            "canListChildren": false,
+            "canModifyContent": true,
+            "canModifyContentRestriction": true,
+            "canModifyEditorContentRestriction": true,
+            "canModifyOwnerContentRestriction": true,
+            "canModifyLabels": false,
+            "canMoveChildrenWithinDrive": false,
+            "canMoveItemIntoTeamDrive": true,
+            "canMoveItemOutOfDrive": true,
+            "canMoveItemWithinDrive": true,
+            "canReadLabels": false,
+            "canReadRevisions": true,
+            "canRemoveChildren": false,
+            "canRemoveContentRestriction": false,
+            "canRemoveMyDriveParent": true,
+            "canRename": true,
+            "canShare": true,
+            "canTrash": true,
+            "canUntrash": true
+          },
+          "permissionIds": [
+            "06093761391042298790"
+          ],
+          "linkShareMetadata": {
+            "securityUpdateEligible": false,
+            "securityUpdateEnabled": true
+          },
+          "kind": "drive#file",
+          "id": "1XHWjfI1gy1Wtdzfk2Crx5SYg6Pypa50i",
+          "name": "faktura_testowa.pdf",
+          "mimeType": "application/pdf",
+          "starred": false,
+          "trashed": false,
+          "explicitlyTrashed": false,
+          "version": "3",
+          "webContentLink": "https://drive.google.com/uc?id=1XHWjfI1gy1Wtdzfk2Crx5SYg6Pypa50i&export=download",
+          "webViewLink": "https://drive.google.com/file/d/1XHWjfI1gy1Wtdzfk2Crx5SYg6Pypa50i/view?usp=drivesdk",
+          "iconLink": "https://drive-thirdparty.googleusercontent.com/16/type/application/pdf",
+          "hasThumbnail": true,
+          "thumbnailLink": "https://lh3.googleusercontent.com/drive-storage/AJQWtBPDN64dynqUrkX8prYNf2Cry6cGD-yAp7rnv0BT2GNarlmKvt9YXBBMlp1lycFha-qAh6WY6gNEfrku2vvgXlET36Co2R9XB8xafvd9_ZtB50g=s220",
+          "thumbnailVersion": "1",
+          "viewedByMe": true,
+          "viewedByMeTime": "2025-06-29T09:35:22.320Z",
+          "createdTime": "2025-06-29T09:35:22.320Z",
+          "modifiedTime": "2025-06-29T09:33:16.000Z",
+          "modifiedByMeTime": "2025-06-29T09:33:16.000Z",
+          "modifiedByMe": true,
+          "shared": false,
+          "ownedByMe": true,
+          "viewersCanCopyContent": true,
+          "copyRequiresWriterPermission": false,
+          "writersCanShare": true,
+          "originalFilename": "faktura_testowa.pdf",
+          "fullFileExtension": "pdf",
+          "fileExtension": "pdf",
+          "md5Checksum": "51dc4483c4dc0fcda720ab216a94f1fb",
+          "sha1Checksum": "fcee7b7887e27251858e66c8c058ca7925266d79",
+          "sha256Checksum": "e0ff0a6c33a9dda6a95cbc6ffec23b7365ac22eaee913606164437993d55e39c",
+          "size": "38673",
+          "quotaBytesUsed": "38673",
+          "headRevisionId": "0B9xXndVpcPlsVWVOV21nNi9SZEVPVHBNSEJSakhreUpBOWpjPQ",
+          "isAppAuthorized": false,
+          "inheritedPermissionsDisabled": false
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Download Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Update DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Binary": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update DB": {
+      "main": [
+        [
+          {
+            "node": "Create Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Email": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d28359d9-520b-4dd2-b4de-82f3c3143669",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "67c19db169141d74c63318da6ba3df0898ce3ec2a8f8f68c68ca5d9aee92a341"
+  },
+  "id": "OhcgHqKdMsPutagj",
+  "tags": []
+}
